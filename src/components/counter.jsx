@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    value: this.props.value
-    // count: 0,
-    // tags: ["tag1", "tag2", "tag3"]
-  };
+
 
   /****************this and arrow function*********************** */
 
@@ -17,9 +13,9 @@ class Counter extends Component {
   //   console.log("Increment Clicked", this);
   // }
 
-  handleIncrement = () => {
-    this.setState({ value: this.state.value + 1 });
-  };
+  // handleIncrement = () => {
+  //   this.setState({ value: this.state.value + 1 });
+  // };
 
   //in ES6, can use only an arrow fucntion without using contructor(){}
   //
@@ -45,12 +41,12 @@ class Counter extends Component {
 
   getBagetClass() {
     let classes = "badge m-2 badge-";
-    classes += this.state.value === 0 ? "warning" : "primary";
+    classes += this.props.counter.value === 0 ? "warning" : "primary";
     return classes;
   }
 
   formatCount() {
-    const { value: count } = this.state;
+    const { value: count } = this.props.counter;
     return count === 0 ? "Zero" : count;
   }
 
@@ -58,7 +54,8 @@ class Counter extends Component {
     return (
       <div>
         <span className={this.getBagetClass()}>{this.formatCount()}</span>
-        <button onClick={this.handleIncrement}>Increment</button>
+        <button onClick={()=>this.props.onIncrement(this.props.counter)}>Increment</button>
+        <button onClick={() => this.props.onDelete(this.props.counter.id)} className="btn btn-danger btn-sm m-2">Delete</button>
       </div>
     );
   }
